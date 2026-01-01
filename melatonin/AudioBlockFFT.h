@@ -67,7 +67,7 @@ namespace melatonin
             // However, FFT is messy. Frequencies might be split between bins
             // We might be ramping up, have multiple frequencies present, etc.
             auto index = frequencyBinFor (frequency);
-            return fftData[index] == juce::FloatVectorOperations::findMaximum (fftData, numberOfBins);
+            return juce::approximatelyEqual (fftData[index], juce::FloatVectorOperations::findMaximum (fftData, numberOfBins));
         }
 
         size_t strongestFrequencyBin()

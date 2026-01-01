@@ -34,7 +34,7 @@ namespace melatonin
         int numberOfZeroCrossings = 0;
         for (size_t i = 0; i < block.getNumSamples(); ++i)
         {
-            if (waveform[i] == 0 && ((i == 0) || waveform[i - 1] != 0))
+            if (juce::approximatelyEqual (waveform[i], SampleType (0)) && ((i == 0) || !juce::approximatelyEqual (waveform[i - 1], SampleType (0))))
                 numberOfZeroCrossings++;
             if ((i > 0) && ((waveform[i - 1] < 0) != (waveform[i] < 0)))
                 numberOfZeroCrossings++;
@@ -58,7 +58,7 @@ namespace melatonin
             float channelZeroValue = block.getSample (0, (int) i);
             for (size_t c = 0; c < block.getNumChannels(); ++c)
             {
-                if (block.getSample ((int) c, (int) i) != channelZeroValue)
+                if (!juce::approximatelyEqual (block.getSample ((int) c, (int) i), channelZeroValue))
                     return false;
             }
         }

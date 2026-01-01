@@ -42,6 +42,6 @@ namespace melatonin
 
     private:
         PositionInfo info;
-        double sampleRate = 44100.0;
+        [[maybe_unused]] double sampleRate = 44100.0;
     };
 }

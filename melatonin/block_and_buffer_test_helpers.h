@@ -513,9 +513,9 @@ namespace melatonin
         std::vector<size_t> histogram (numBins, 0);
         const double binSize = (rangeEnd - rangeStart) / numBins;
 
-        for (auto i = 0; i < block.getNumSamples(); ++i)
+        for (size_t i = 0; i < block.getNumSamples(); ++i)
         {
-            auto binIndex = juce::jlimit(size_t(0), numBins - 1, static_cast<size_t> ((block.getSample (0, i) - rangeStart) / binSize));
+            auto binIndex = juce::jlimit(size_t(0), numBins - 1, static_cast<size_t> ((block.getSample (0, static_cast<int> (i)) - rangeStart) / binSize));
             histogram[binIndex]++;
         }
 
@@ -535,9 +535,9 @@ namespace melatonin
     float average (AudioBlock<SampleType>& block)
     {
         float sum = 0;
-        for (int i = 0; i < block.getNumSamples(); ++i)
-            sum += block.getSample (0, i);
-        return sum / (float) block.getNumSamples();
+        for (size_t i = 0; i < block.getNumSamples(); ++i)
+            sum += block.getSample (0, static_cast<int> (i));
+        return sum / static_cast<float> (block.getNumSamples());
     }
 
 }
